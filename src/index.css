@@ -1,0 +1,250 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f3f4f6;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-container {
+  width: 800px;
+  height: 480px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Default theme scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Green theme styles */
+.theme-green {
+  /* All text in primary green */
+  color: #547758;
+
+  .app-container {
+    background-color: white;
+  }
+
+  header {
+    height: calc(480px / 5) !important; /* 1/5 of container height */
+    min-height: auto !important;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  header button {
+    color: #547758;
+    background-color: transparent !important;
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+
+  header svg {
+    color: #547758;
+  }
+
+  .menu-item {
+    background-color: white;
+    border: 1px solid #EEF7D1;
+    &:hover:not(:disabled) {
+      background-color: #EEF7D1;
+    }
+  }
+
+  .menu-icon {
+    color: #547758;
+  }
+
+  .menu-label {
+    color: #547758;
+  }
+
+  button {
+    color: #547758;
+    background-color: #EEF7D1;
+    &:hover {
+      background-color: #ACB983;
+    }
+    &.finish-button {
+      background-color: #ACB983;
+      &:hover {
+        background-color: #547758;
+        color: white;
+      }
+    }
+  }
+
+  /* Style for retry buttons */
+  button[onClick*="handleRetry"],
+  button[onClick*="startTesting"]:not(:first-of-type) {
+    background-color: #ACB983;
+    &:hover {
+      background-color: #547758;
+      color: white;
+    }
+  }
+
+  .notification-bar {
+    background-color: white;
+    border-color: #ACB983;
+  }
+
+  .success-message {
+    background-color: #EEF7D1;
+    color: #547758;
+  }
+
+  .calibration-icon {
+    color: #547758;
+  }
+
+  .language-selector button {
+    background-color: white;
+    border: 1px solid #EEF7D1;
+    &:hover {
+      background-color: #EEF7D1;
+    }
+    &.active {
+      background-color: #EEF7D1;
+    }
+  }
+
+  .theme-selector button {
+    background-color: white;
+    border: 1px solid #EEF7D1;
+    &:hover {
+      background-color: #EEF7D1;
+    }
+    &.active {
+      background-color: #EEF7D1;
+    }
+  }
+
+  .main-content {
+    margin-top: 1rem;
+    background-color: white;
+  }
+
+  .menu-icon-container {
+    background-color: white;
+    border: 1px solid #EEF7D1;
+  }
+
+  table {
+    th, td {
+      color: #547758;
+    }
+  }
+
+  .advanced-stats {
+    h3, p, span {
+      color: #547758;
+    }
+  }
+
+  /* Green theme scrollbar */
+  ::-webkit-scrollbar-thumb {
+    background: #ACB983;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #547758;
+  }
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.5rem;
+}
+
+/* Main Menu Styles */
+.main-menu {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  height: 100%;
+  align-content: center;
+  padding: 0 1.5rem;
+}
+
+.menu-item {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* gap: 1rem; */
+  /* background-color: #f9fafb; */
+  border-radius: 0.75rem;
+  /* transition: background-color 0.2s; */
+  /* padding: 1.5rem; */
+  height: 100%;
+}
+/* 
+.menu-item:hover:not(:disabled) {
+  background-color: #f3f4f6;
+} */
+
+.menu-item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.menu-icon-container {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.menu-icon-container:hover {
+  background-color: #f3f4f6; /* A light gray background on hover */
+  transform: scale(1.05);   /* Slightly enlarge the icon container */
+}
+
+.menu-icon {
+  width: 60%;
+  height: 60%;
+  color: #4b5563;
+}
+
+.menu-label {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #111827;
+  text-align: center;
+}
