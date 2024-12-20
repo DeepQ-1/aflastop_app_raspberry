@@ -27,11 +27,7 @@
     "recharts": "^2.12.2"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^7.3.0",
-    "@electron-forge/maker-deb": "^7.3.0",
-    "@electron-forge/maker-rpm": "^7.3.0",
-    "@electron-forge/maker-squirrel": "^7.3.0",
-    "@electron-forge/maker-zip": "^7.3.0",
+
     "@eslint/js": "^9.9.1",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
@@ -39,9 +35,6 @@
     "autoprefixer": "^10.4.18",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
-    "electron": "^29.1.4",
-    "electron-devtools-installer": "^3.2.0",
-    "electron-reloader": "^1.2.3",
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
@@ -56,27 +49,7 @@
     "forge": {
       "packagerConfig": {
         "icon": "public/logo.svg"
-      },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "aflastop"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": ["linux"]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
+      }
     }
   }
 }
