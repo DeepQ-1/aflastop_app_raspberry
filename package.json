@@ -7,7 +7,7 @@
   "license": "AflaStop EULA",
   "scripts": {
     "dev": "vite",
-    "dev:electron": "export DISPLAY=:0 && cross-env NODE_ENV=development concurrently \"vite\" \"electron-forge start\"",
+    "dev:electron": "export DISPLAY=:0 && cross-env NODE_ENV=development DISPLAY=:0 concurrently \"vite\" \"electron-forge start\"",
     "build": "vite build",
     "build:electron": "vite build && electron-forge make",
     "preview": "vite preview",

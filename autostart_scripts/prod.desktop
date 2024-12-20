@@ -1,0 +1,15 @@
+
+[Desktop Entry]
+Type=Application
+Categories=Application;
+Exec=/home/pi/aflastop_app_1-main/kiosk.sh
+StartupNotify=false
+Terminal=false
+Hidden=false
+NoDisplay=false
+Name[en_GB]=StartUp
+Name=StartUp
+Icon=/usr/share/icons/hicolor/scalable/apps/conky-logomark-violet.svg
+Comment[en_GB]=StartUp
+Comment=StartUp
+X-GNOME-Autostart-enabled=false

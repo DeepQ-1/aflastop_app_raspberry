@@ -26,7 +26,7 @@ const App: React.FC = () => {
                   <Route path="testing" element={<Testing />} />
                   <Route path="history" element={<History />} />
                   <Route path="advanced" element={<Advanced />} />
-                  <Route path="*" element={<NotFound />} />
+                  <Route path="*" element={<MainLayout />} />
                 </Route>
               </Routes>
             </BrowserRouter>
