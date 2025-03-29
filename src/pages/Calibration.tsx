@@ -118,7 +118,7 @@ export const Calibration: React.FC = () => {
             </div>
             <h2 className="text-3xl font-bold mb-4">{t('calibration.inProgress.message')}</h2>
             <p className="text-2xl font-medium" style={{
-              color: theme === 'dark' || theme === 'green' ? "#ffffff" : "#4b5563" // Brighter in dark theme
+              color: theme === 'dark' ? "#ffffff" : "#4b5563" // Brighter in dark theme
             }}>{t('calibration.inProgress.wait')}</p>
           </div>
         )}
@@ -145,7 +145,7 @@ export const Calibration: React.FC = () => {
             </div>
             <h2 className="text-2xl font-bold mb-2" style={{color: "#ef4444"}}>{t('calibration.failure.message')}</h2>
             <p className="mb-3 text-lg max-h-20 overflow-hidden font-medium" style={{
-              color: theme === 'dark' || theme === 'green' ? "#ffffff" : "#4b5563" // Brighter in dark theme
+              color: theme === 'dark' ? "#ffffff" : "#4b5563" // Brighter in dark theme
             }}>
               {t('calibration.failure.instructions')}
             </p>

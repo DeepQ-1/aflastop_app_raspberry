@@ -61,7 +61,10 @@ ipcMain.handle('execute-script', async (event, scriptName) => {
   const projectRoot = path.resolve(__dirname, '..');
   const scriptPath = path.join(projectRoot, scriptName);
   
-  console.log(`Executing script: ${scriptPath}`);
+  // Only log execution for scripts other than check_tray_status.sh
+  if (!scriptName.includes('check_tray_status.sh')) {
+    console.log(`Executing script: ${scriptPath}`);
+  }
   
   return new Promise((resolve, reject) => {
     exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
@@ -69,7 +72,10 @@ ipcMain.handle('execute-script', async (event, scriptName) => {
         console.error(`Error executing ${scriptName}:`, stderr);
         reject(stderr);
       } else {
-        console.log(`Output from ${scriptName}:`, stdout);
+        // Only log output for scripts other than check_tray_status.sh
+        if (!scriptName.includes('check_tray_status.sh')) {
+          console.log(`Output from ${scriptName}:`, stdout);
+        }
         resolve(stdout.trim());
       }
     });

@@ -19,7 +19,7 @@ export const TrayStatusProvider: React.FC<{ children: ReactNode }> = ({ children
       setError(null);
       const scriptName = 'dependency_scripts/check_tray_status.sh';
       const trayStatus = await window.electron.invoke('execute-script', scriptName);
-      console.log('Tray status response:', trayStatus);
+      // Don't log tray status to prevent console spam
       // Check if the output contains "Tray is OPEN"
       setIsTrayOpen(trayStatus.includes('Tray is OPEN'));
     } catch (err) {

@@ -117,7 +117,7 @@ export const Testing: React.FC = () => {
             <Search className="w-20 h-20 mb-8 animate-pulse mx-auto" style={{color: "#9ca3af"}} />
             <h2 className="text-3xl font-bold mb-4">{t('testing.inProgress.message')}</h2>
             <p className="text-2xl font-medium" style={{
-              color: theme === 'dark' || theme === 'green' ? "#ffffff" : "#4b5563" // Brighter in dark theme
+              color: theme === 'dark' ? "#ffffff" : "#4b5563" // Brighter in dark theme
             }}>{t('testing.inProgress.wait')}</p>
             <div className="flex justify-center gap-2 mt-8">
               {[...Array(6)].map((_, i) => (

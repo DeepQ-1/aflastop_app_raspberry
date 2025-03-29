@@ -11,7 +11,7 @@ export const Advanced: React.FC = () => {
   const history = getTestHistory();
   
   // Theme-based colors
-  const isDarkTheme = theme === 'green';
+  const isDarkTheme = theme === 'dark';
   const cardBgColor = isDarkTheme ? 'rgb(51, 55, 65)' : 'white';
   const textColor = isDarkTheme ? 'white' : 'text-gray-600';
   const headingColor = isDarkTheme ? 'white' : 'text-gray-900';
