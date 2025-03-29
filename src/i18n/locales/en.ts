@@ -11,10 +11,15 @@ export default {
     settings: {
       theme: 'Application Theme',
       language: 'Application Language',
-      deviceOptions: 'Device Options'
+      deviceOptions: 'Device Options',
+      themes: {
+        light: 'LIGHT',
+        dark: 'DARK'
+      }
     },
     notifications: {
-      calibrationNeeded: 'Camera calibration is required before each test.'
+      calibrationNeeded: 'Camera calibration is required.',
+      trayOpen: 'Tray is open. Please close the tray before continuing.'
     },
     calibration: {
       instructions: {

@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { getThemePreference, saveThemePreference } from '../utils/storage';
 
-type Theme = 'default' | 'green';
+type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
@@ -10,11 +11,27 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>('default');
+  // Initialize with saved preference or dark theme as default
+  const [theme, setThemeState] = useState<Theme>(() => {
+    const savedTheme = getThemePreference();
+    // Handle legacy theme names (default -> light, green -> dark)
+    if (savedTheme === 'default') return 'light';
+    if (savedTheme === 'green') return 'dark';
+    return (savedTheme as Theme) || 'dark';
+  });
+
+  // Custom setter that also saves to localStorage
+  const setTheme = (newTheme: Theme) => {
+    setThemeState(newTheme);
+    saveThemePreference(newTheme);
+  };
+
+  // Map the new theme names to the existing CSS class names for backwards compatibility
+  const cssThemeClass = theme === 'light' ? 'theme-default' : 'theme-green';
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <div className={`theme-${theme}`}>
+      <div className={cssThemeClass}>
         {children}
       </div>
     </ThemeContext.Provider>

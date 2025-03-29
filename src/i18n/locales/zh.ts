@@ -11,10 +11,15 @@ export default {
     settings: {
       theme: '应用主题',
       language: '应用语言',
-      deviceOptions: '设备选项'
+      deviceOptions: '设备选项',
+      themes: {
+        light: '明亮',
+        dark: '暗黑'
+      }
     },
     notifications: {
-      calibrationNeeded: '每次测试前都需要进行相机校准。'
+      calibrationNeeded: '需要进行相机校准。',
+      trayOpen: '托盘已打开。请在继续之前关闭托盘。'
     },
     calibration: {
       instructions: {

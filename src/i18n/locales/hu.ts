@@ -11,10 +11,15 @@ export default {
     settings: {
       theme: 'Alkalmazás témája',
       language: 'Alkalmazás nyelve',
-      deviceOptions: 'Készülék beállításai'
+      deviceOptions: 'Készülék beállításai',
+      themes: {
+        light: 'VILÁGOS',
+        dark: 'SÖTÉT'
+      }
     },
     notifications: {
-      calibrationNeeded: 'Minden teszt előtt kamera kalibrálás szükséges.'
+      calibrationNeeded: 'Kamera kalibrálás szükséges.',
+      trayOpen: 'A fiók nyitva van. Kérjük, zárja be a fiókot a folytatás előtt.'
     },
     calibration: {
       instructions: {

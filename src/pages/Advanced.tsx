@@ -3,10 +3,19 @@ import { useTranslation } from 'react-i18next';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { getTestHistory } from '../utils/storage';
 import { TestResult } from '../types/test';
+import { useTheme } from '../context/ThemeContext';
 
 export const Advanced: React.FC = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
   const history = getTestHistory();
+  
+  // Theme-based colors
+  const isDarkTheme = theme === 'green';
+  const cardBgColor = isDarkTheme ? 'rgb(51, 55, 65)' : 'white';
+  const textColor = isDarkTheme ? 'white' : 'text-gray-600';
+  const headingColor = isDarkTheme ? 'white' : 'text-gray-900';
+  const progressBgColor = isDarkTheme ? 'rgb(61, 65, 75)' : 'bg-gray-200';
   
   // Calculate statistics
   const totalTests = history.length;
@@ -30,16 +39,16 @@ export const Advanced: React.FC = () => {
   return (
     <div className="grid grid-cols-2 gap-8 h-full p-6">
       <div className="space-y-8">
-        <div className="bg-white p-6 rounded-lg shadow">
+        <div className="p-6 rounded-lg shadow" style={{ backgroundColor: cardBgColor }}>
           <h3 className="text-3xl font-bold mb-4">{t('advanced.workingHours')}</h3>
           <div className="space-y-4">
-            <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-4 rounded-full overflow-hidden" style={{ backgroundColor: progressBgColor }}>
               <div 
                 className="h-full bg-blue-500 transition-all"
                 style={{ width: `${(usedHours / totalHours) * 100}%` }}
               />
             </div>
-            <div className="flex justify-between text-xl text-gray-600">
+            <div className="flex justify-between text-xl" style={{ color: isDarkTheme ? 'white' : '#4b5563' }}>
               <span>{usedHours} {t('advanced.hours')}</span>
               <span>{t('advanced.of')} {totalHours}</span>
             </div>
@@ -51,13 +60,13 @@ export const Advanced: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow">
+        <div className="p-6 rounded-lg shadow" style={{ backgroundColor: cardBgColor }}>
           <h3 className="text-3xl font-bold mb-4">{t('advanced.totalScans')}</h3>
-          <p className="text-4xl font-bold text-gray-900">{totalTests}</p>
+          <p className="text-4xl font-bold" style={{ color: isDarkTheme ? 'white' : '#111827' }}>{totalTests}</p>
         </div>
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow h-full">
+      <div className="p-6 rounded-lg shadow h-full" style={{ backgroundColor: cardBgColor }}>
         <h3 className="text-3xl font-bold mb-4">{t('advanced.resultDistribution')}</h3>
         <div className="h-[180px]">
           <ResponsiveContainer width="100%" height="100%">
@@ -85,7 +94,7 @@ export const Advanced: React.FC = () => {
                 className="w-4 h-4 rounded-full"
                 style={{ backgroundColor: entry.color }}
               />
-              <span className="text-xl text-gray-600">{entry.name}</span>
+              <span className="text-xl" style={{ color: isDarkTheme ? 'white' : '#4b5563' }}>{entry.name}</span>
             </div>
           ))}
         </div>

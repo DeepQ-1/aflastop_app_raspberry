@@ -7,32 +7,32 @@ export const ThemeSelector: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-3">
       <button
-        onClick={() => setTheme('default')}
-        className={`flex-1 p-2 rounded-lg ${
-          theme === 'default'
-            ? 'bg-gray-200'
+        onClick={() => setTheme('light')}
+        className={`flex-1 py-3 px-2 rounded-lg text-xl font-bold ${
+          theme === 'light'
+            ? 'bg-gray-200 border border-gray-400'
             : 'bg-gray-100 hover:bg-gray-200'
-        } transition-colors relative`}
+        } transition-colors`}
+        style={{ 
+          color: theme === 'light' ? '#4b5563' : '#6b7280'
+        }}
       >
-        <div className="w-6 h-6 mx-auto bg-white border border-gray-300 rounded-full" />
-        {theme === 'default' && (
-          <div className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-[#547758] left-1/2 -translate-x-1/2" />
-        )}
+{t('settings.themes.light')}
       </button>
       <button
-        onClick={() => setTheme('green')}
-        className={`flex-1 p-2 rounded-lg ${
-          theme === 'green'
-            ? 'bg-[#ACB983]'
-            : 'bg-[#EEF7D1] hover:bg-[#ACB983]'
-        } transition-colors relative`}
+        onClick={() => setTheme('dark')}
+        className={`flex-1 py-3 px-2 rounded-lg text-xl font-bold ${
+          theme === 'dark'
+            ? 'bg-[#3a3f4b] border border-[#547758]'
+            : 'bg-[#292d37] hover:bg-[#3a3f4b]'
+        } transition-colors`}
+        style={{ 
+          color: theme === 'dark' ? '#ffffff' : '#9ca3af'
+        }}
       >
-        <div className="w-6 h-6 mx-auto bg-[#547758] border border-[#ACB983] rounded-full" />
-        {theme === 'green' && (
-          <div className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-[#547758] left-1/2 -translate-x-1/2" />
-        )}
+{t('settings.themes.dark')}
       </button>
     </div>
   );

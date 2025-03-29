@@ -2,11 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Remove pointer cursor for touch screen */
+* {
+  cursor: none !important;
+}
+
+/* Touch ripple styles and animation */
+/* Tap highlight */
+.tap-highlight {
+  position: fixed;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: rgba(100, 100, 100, 0.5);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.1s ease-in-out;
+}
+
 body {
   margin: 0;
   padding: 0;
   background-color: #f3f4f6;
   overflow-x: hidden;
+  position: relative; /* For touch ripple positioning */
 }
 
 #root {
@@ -15,13 +37,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgb(41, 45, 55); /* Match dark theme background */
 }
 
 .app-container {
   width: 800px;
   height: 480px;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 0; /* Removed border radius */
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   position: relative;
   overflow: hidden;
@@ -47,59 +70,66 @@ body {
   background: #9ca3af;
 }
 
-/* Green theme styles */
+/* Dark theme styles */
 .theme-green {
-  /* All text in primary green */
-  color: #547758;
+  /* All text in white */
+  color: #ffffff;
 
-  .app-container {
-    background-color: white;
+  .app-container, .absolute {
+    background-color: rgb(41, 45, 55);
   }
 
   header {
     height: calc(480px / 5) !important; /* 1/5 of container height */
     min-height: auto !important;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #3a3f4b;
+    background-color: rgb(41, 45, 55);
   }
+  
   header button {
-    color: #547758;
+    color: #ffffff;
     background-color: transparent !important;
     &:hover {
-      background-color: transparent !important;
+      background-color: rgba(255, 255, 255, 0.1) !important;
     }
   }
 
   header svg {
-    color: #547758;
+    color: #ffffff;
   }
 
   .menu-item {
-    background-color: white;
-    border: 1px solid #EEF7D1;
+    background-color: rgb(51, 55, 65);
+    border: 1px solid #547758; /* Green border for menu items */
     &:hover:not(:disabled) {
-      background-color: #EEF7D1;
+      background-color: rgb(61, 65, 75);
     }
   }
 
   .menu-icon {
-    color: #547758;
+    color: #ffffff;
+    filter: invert(1);
+  }
+
+  .menu-icon-container img {
+    filter: brightness(0) invert(1);
   }
 
   .menu-label {
-    color: #547758;
+    color: #ffffff;
   }
 
   button {
-    color: #547758;
-    background-color: #EEF7D1;
+    color: #ffffff;
+    background-color: rgb(61, 65, 75);
+    border: 1px solid #547758 !important; /* Green border for all buttons */
     &:hover {
-      background-color: #ACB983;
+      background-color: rgb(81, 85, 95);
     }
     &.finish-button {
-      background-color: #ACB983;
+      background-color: rgb(81, 85, 95);
       &:hover {
-        background-color: #547758;
-        color: white;
+        background-color: rgb(101, 105, 115);
       }
     }
   }
@@ -107,79 +137,107 @@ body {
   /* Style for retry buttons */
   button[onClick*="handleRetry"],
   button[onClick*="startTesting"]:not(:first-of-type) {
-    background-color: #ACB983;
+    background-color: rgb(81, 85, 95);
     &:hover {
-      background-color: #547758;
-      color: white;
+      background-color: rgb(101, 105, 115);
     }
   }
 
   .notification-bar {
-    background-color: white;
-    border-color: #ACB983;
+    background-color: rgb(51, 55, 65);
+    border-color: rgb(61, 65, 75);
   }
 
   .success-message {
-    background-color: #EEF7D1;
-    color: #547758;
+    background-color: rgb(51, 55, 65);
+    color: #ffffff;
   }
 
   .calibration-icon {
-    color: #547758;
+    color: #ffffff;
   }
 
   .language-selector button {
-    background-color: white;
-    border: 1px solid #EEF7D1;
+    background-color: rgb(51, 55, 65);
+    border: 1px solid #547758; /* Green border for language buttons */
+    color: #ffffff;
     &:hover {
-      background-color: #EEF7D1;
+      background-color: rgb(61, 65, 75);
     }
     &.active {
-      background-color: #EEF7D1;
+      background-color: rgb(61, 65, 75);
     }
   }
 
   .theme-selector button {
-    background-color: white;
-    border: 1px solid #EEF7D1;
+    background-color: rgb(51, 55, 65);
+    border: 1px solid #547758; /* Green border for theme buttons */
+    color: #ffffff;
     &:hover {
-      background-color: #EEF7D1;
+      background-color: rgb(61, 65, 75);
     }
     &.active {
-      background-color: #EEF7D1;
+      background-color: rgb(61, 65, 75);
     }
   }
 
   .main-content {
     margin-top: 1rem;
-    background-color: white;
+    background-color: rgb(41, 45, 55);
   }
 
   .menu-icon-container {
-    background-color: white;
-    border: 1px solid #EEF7D1;
+    background-color: rgb(51, 55, 65) !important;
+    border: none; /* Remove border from icon container */
+  }
+  
+  .menu-icon-container:hover {
+    background-color: rgb(61, 65, 75) !important; /* Darker hover color for dark theme */
   }
 
   table {
     th, td {
-      color: #547758;
+      color: #ffffff;
     }
   }
 
   .advanced-stats {
     h3, p, span {
-      color: #547758;
+      color: #ffffff;
     }
   }
+  
+  /* Fix text colors for dark theme */
+  .text-gray-400 {
+    color: #9ca3af !important;
+  }
+  
+  .text-gray-500, .text-gray-600 {
+    color: #d1d5db !important;
+  }
+  
+  span.font-mono {
+    color: #ffffff !important;
+  }
+  
+  .bg-gray-500 {
+    background-color: #9ca3af !important;
+  }
+  
+  .bg-gray-300 {
+    background-color: #6b7280 !important;
+  }
 
-  /* Green theme scrollbar */
+  /* Dark theme scrollbar */
   ::-webkit-scrollbar-thumb {
-    background: #ACB983;
+    background: rgb(81, 85, 95);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #547758;
+    background: rgb(101, 105, 115);
   }
+  
+  /* Other dark theme styles */
 }
 
 .main-content {
@@ -233,7 +291,7 @@ body {
 }
 
 .menu-icon-container:hover {
-  background-color: #f3f4f6; /* A light gray background on hover */
+  background-color: #f3f4f6; /* A light gray background on hover for light theme */
   transform: scale(1.05);   /* Slightly enlarge the icon container */
 }
 

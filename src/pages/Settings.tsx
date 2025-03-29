@@ -11,7 +11,7 @@ export const Settings: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 h-full overflow-y-auto">
       <PageTitle subtitle="Manage your application preferences">
         Settings
       </PageTitle>

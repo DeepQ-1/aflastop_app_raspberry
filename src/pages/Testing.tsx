@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { saveTestResult } from '../utils/storage';
 import { TestResult } from '../types/test';
 import { useLayout } from '../context/LayoutContext';
+import { useTrayStatus } from '../context/TrayStatusContext';
+import { useTheme } from '../context/ThemeContext';
 
 type TestingState = 'instructions' | 'testing' | 'success' | 'warning' | 'positive';
 
@@ -23,6 +25,15 @@ export const Testing: React.FC = () => {
   const [state, setState] = useState<TestingState>('instructions');
   const { setTestId } = useLayout();
   const [currentTestId, setCurrentTestId] = useState('');
+  const { isTrayOpen } = useTrayStatus();
+  const { theme } = useTheme();
+  
+  // Redirect to home if tray is open
+  useEffect(() => {
+    if (isTrayOpen) {
+      navigate('/');
+    }
+  }, [isTrayOpen, navigate]);
 
   useEffect(() => {
     return () => {
@@ -103,9 +114,11 @@ export const Testing: React.FC = () => {
 
         {state === 'testing' && (
           <div className="text-center">
-            <Search className="w-20 h-20 text-gray-400 mb-8 animate-pulse mx-auto" />
+            <Search className="w-20 h-20 mb-8 animate-pulse mx-auto" style={{color: "#9ca3af"}} />
             <h2 className="text-3xl font-bold mb-4">{t('testing.inProgress.message')}</h2>
-            <p className="text-gray-600 text-2xl">{t('testing.inProgress.wait')}</p>
+            <p className="text-2xl font-medium" style={{
+              color: theme === 'dark' || theme === 'green' ? "#ffffff" : "#4b5563" // Brighter in dark theme
+            }}>{t('testing.inProgress.wait')}</p>
             <div className="flex justify-center gap-2 mt-8">
               {[...Array(6)].map((_, i) => (
                 <div

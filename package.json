@@ -66,7 +66,9 @@
         },
         {
           "name": "@electron-forge/maker-zip",
-          "platforms": ["linux"]
+          "platforms": [
+            "linux"
+          ]
         },
         {
           "name": "@electron-forge/maker-deb",

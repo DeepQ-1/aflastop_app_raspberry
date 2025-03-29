@@ -1,6 +1,8 @@
 import React from 'react';
-import { X } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
+import { useTrayStatus } from '../context/TrayStatusContext';
 
 interface NotificationBarProps {
   isCalibrated: boolean;
@@ -14,28 +16,48 @@ export const NotificationBar: React.FC<NotificationBarProps> = ({
   onDismiss
 }) => {
   const { t } = useTranslation();
+  const { isTrayOpen } = useTrayStatus();
+  const location = useLocation();
+  
+  // Check current screen
+  const isCalibrationScreen = location.pathname === '/calibration';
+  const isHomeScreen = location.pathname === '/';
 
-  if (isCalibrated) return null;
+  // Don't show any notification if everything is fine
+  console.log('Notification bar - Tray open:', isTrayOpen, 'Calibration needed:', !isCalibrated, 'Home screen:', isHomeScreen);
+  if ((isCalibrated && !isTrayOpen) || (!isHomeScreen && !isTrayOpen)) return null;
 
-  return (
-    <div className="bg-yellow-100 p-4 border-t">
-      <div className="flex items-center justify-between mb-3">
-        <p className="text-2xl text-gray-700">
-          {t('notifications.calibrationNeeded')}
-        </p>
-        <button 
-          onClick={onDismiss}
-          className="p-1 hover:bg-gray-500 rounded-full"
-        >
-          <X className="w-8 h-8 text-gray-800" />
-        </button>
+  // Tray open notification has priority over calibration notification (shown on all screens)
+  if (isTrayOpen) {
+    return (
+      <div className="p-4 border-t" style={{ backgroundColor: '#FECACA' }}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <AlertTriangle className="w-8 h-8 mr-3" style={{ color: '#DC2626' }} />
+            <p className="text-2xl font-medium" style={{ color: '#991B1B' }}>
+              {t('notifications.trayOpen')}
+            </p>
+          </div>
+        </div>
       </div>
-      <button 
-        onClick={onCalibrate}
-        className="w-full bg-white py-2 rounded-md text-2xl font-large hover:bg-gray-100 transition-colors"
-      >
-        {t('calibration.buttons.start')}
-      </button>
-    </div>
-  );
+    );
+  }
+
+  // Show simplified calibration notification (no buttons) - only on home screen
+  if (!isCalibrated && isHomeScreen) {
+    return (
+      <div className="p-4 border-t" style={{ backgroundColor: '#FEF3C7' }}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <AlertTriangle className="w-8 h-8 mr-3" style={{ color: '#92400E' }} />
+            <p className="text-2xl font-medium" style={{ color: '#92400E' }}>
+              {t('notifications.calibrationNeeded')}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return null;
 };

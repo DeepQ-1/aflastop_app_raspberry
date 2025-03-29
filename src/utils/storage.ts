@@ -1,6 +1,8 @@
 import { TestRecord } from '../types/test';
 
 const STORAGE_KEY = 'test_history';
+const LANGUAGE_KEY = 'app_language';
+const THEME_KEY = 'app_theme';
 
 export const saveTestResult = (record: TestRecord): void => {
   const history = getTestHistory();
@@ -11,4 +13,22 @@ export const saveTestResult = (record: TestRecord): void => {
 export const getTestHistory = (): TestRecord[] => {
   const history = localStorage.getItem(STORAGE_KEY);
   return history ? JSON.parse(history) : [];
+};
+
+// Language preferences
+export const saveLanguagePreference = (languageCode: string): void => {
+  localStorage.setItem(LANGUAGE_KEY, languageCode);
+};
+
+export const getLanguagePreference = (): string | null => {
+  return localStorage.getItem(LANGUAGE_KEY);
+};
+
+// Theme preferences
+export const saveThemePreference = (theme: string): void => {
+  localStorage.setItem(THEME_KEY, theme);
+};
+
+export const getThemePreference = (): string | null => {
+  return localStorage.getItem(THEME_KEY);
 };

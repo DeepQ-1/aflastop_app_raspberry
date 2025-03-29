@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useCalibration } from '../context/CalibrationContext';
+import { useTrayStatus } from '../context/TrayStatusContext';
 
 import CalibrationIcon from '../assets/calibration-menu.png';
 import TestingIcon from '../assets/testing-menu.png';
@@ -15,19 +16,21 @@ interface MainMenuProps {
 export const MainMenu: React.FC<MainMenuProps> = ({ onCalibrate }) => {
   const navigate = useNavigate();
   const { isCalibrated } = useCalibration();
+  const { isTrayOpen } = useTrayStatus();
   const { t } = useTranslation();
 
   const menuItems = [
     { 
       icon: CalibrationIcon, 
       label: t('menu.calibration'), 
-      onClick: () => navigate('/calibration')
+      disabled: isTrayOpen,
+      onClick: () => !isTrayOpen && navigate('/calibration')
     },
     { 
       icon: TestingIcon, 
       label: t('menu.testing'),
-      disabled: !isCalibrated,
-      onClick: () => isCalibrated && navigate('/testing')
+      disabled: !isCalibrated || isTrayOpen,
+      onClick: () => isCalibrated && !isTrayOpen && navigate('/testing')
     },
     { 
       icon: HistoryIcon, 

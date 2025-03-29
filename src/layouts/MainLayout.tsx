@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Menu, ArrowLeft, Power, RotateCcw } from 'lucide-react';
@@ -8,6 +8,7 @@ import { ThemeSelector } from '../components/ThemeSelector';
 import { NotificationBar } from '../components/NotificationBar';
 import { useCalibration } from '../context/CalibrationContext';
 import { useLayout } from '../context/LayoutContext';
+import { useTrayStatus } from '../context/TrayStatusContext';
 
 export const MainLayout: React.FC = () => {
   const navigate = useNavigate();
@@ -62,12 +63,12 @@ export const MainLayout: React.FC = () => {
         </div>
         <div className="flex items-center gap-4">
           {showTestId && (
-            <span className="font-mono text-6xl text-gray-600">{testId}</span>
+            <span className="font-mono text-6xl">{testId}</span>
           )}
           {showHamburger && (
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-opacity-10 hover:bg-white rounded-lg transition-colors"
             >
               <Menu className="w-16 h-16" />
             </button>
@@ -79,43 +80,41 @@ export const MainLayout: React.FC = () => {
         <Outlet />
       </main>
 
-      {isMainPage && !isCalibrated && showNotification && (
-        <NotificationBar
-          isCalibrated={isCalibrated}
-          onCalibrate={() => navigate('/calibration')}
-          onDismiss={() => setShowNotification(false)}
-        />
-      )}
+      <NotificationBar
+        isCalibrated={isCalibrated}
+        onCalibrate={() => navigate('/calibration')}
+        onDismiss={() => setShowNotification(false)}
+      />
 
       {isMenuOpen && (
-        <div className="absolute inset-0 bg-white flex flex-col">
+        <div className="absolute inset-0 bg-inherit flex flex-col">
           <header className="h-28 px-4 flex items-center justify-between">
             <button
               onClick={() => setIsMenuOpen(false)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-opacity-10 hover:bg-white rounded-lg transition-colors"
             >
               <ArrowLeft className="w-16 h-16" />
             </button>
           </header>
-          <div className="flex-1 flex flex-col gap-6 p-8 -mt-5">
-            <div className="space-y-2">
-              <p className="text-2xl text-gray-600 font-medium">{t('settings.language')}</p>
+          <div className="flex flex-col h-full p-8 -mt-5">
+            <div className="space-y-2 mb-8">
+              <p className="text-2xl font-medium">{t('settings.language')}</p>
               <LanguageSelector />
             </div>
-            <div className="space-y-2">
-              <p className="text-2xl text-gray-600 font-medium">{t('settings.theme')}</p>
+            <div className="space-y-2 mb-8">
+              <p className="text-2xl font-medium">{t('settings.theme')}</p>
               <ThemeSelector />
             </div>
-            <div className="space-y-2">
-              <p className="text-2xl text-gray-600 font-medium">{t('settings.deviceOptions')}</p>
-              <div className="flex gap-4">
-                <button className="flex-1 bg-gray-100 py-3 px-4 rounded-lg flex items-center justify-center gap-3 hover:bg-gray-200 transition-colors">
-                  <Power className="w-5 h-5" />
-                  <span className="font-medium text-3xl">{t('menu.shutdown')}</span>
+            <div className="space-y-2 mb-4">
+              <p className="text-2xl font-medium">{t('settings.deviceOptions')}</p>
+              <div className="flex gap-3">
+                <button className="flex-1 bg-opacity-20 bg-white py-2 px-3 rounded-lg flex items-center justify-center gap-2 hover:bg-opacity-30 transition-colors">
+                  <Power className="w-4 h-4" />
+                  <span className="font-medium text-xl">{t('menu.shutdown')}</span>
                 </button>
-                <button className="flex-1 bg-gray-100 py-3 px-4 rounded-lg flex items-center justify-center gap-3 hover:bg-gray-200 transition-colors">
-                  <RotateCcw className="w-5 h-5" />
-                  <span className="font-medium text-3xl">{t('menu.reset')}</span>
+                <button className="flex-1 bg-opacity-20 bg-white py-2 px-3 rounded-lg flex items-center justify-center gap-2 hover:bg-opacity-30 transition-colors">
+                  <RotateCcw className="w-4 h-4" />
+                  <span className="font-medium text-xl">{t('menu.reset')}</span>
                 </button>
               </div>
             </div>

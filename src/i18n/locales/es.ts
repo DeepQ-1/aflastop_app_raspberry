@@ -11,10 +11,15 @@ export default {
     settings: {
       theme: 'Tema de la aplicación',
       language: 'Idioma de la aplicación',
-      deviceOptions: 'Opciones del dispositivo'
+      deviceOptions: 'Opciones del dispositivo',
+      themes: {
+        light: 'CLARO',
+        dark: 'OSCURO'
+      }
     },
     notifications: {
-      calibrationNeeded: 'Se requiere calibración de la cámara antes de cada prueba.'
+      calibrationNeeded: 'Se requiere calibración de la cámara.',
+      trayOpen: 'La bandeja está abierta. Por favor, cierre la bandeja antes de continuar.'
     },
     calibration: {
       instructions: {

@@ -11,10 +11,15 @@ export default {
     settings: {
       theme: 'Tema aplikacije',
       language: 'Jezik aplikacije',
-      deviceOptions: 'Opcije uređaja'
+      deviceOptions: 'Opcije uređaja',
+      themes: {
+        light: 'SVIJETLO',
+        dark: 'TAMNO'
+      }
     },
     notifications: {
-      calibrationNeeded: 'Prije svakog testiranja potrebno je pokrenuti kalibraciju kamere.'
+      calibrationNeeded: 'Potrebno je pokrenuti kalibraciju kamere.',
+      trayOpen: 'Ladica je otvorena. Molimo zatvorite ladicu prije nastavka.'
     },
     calibration: {
       instructions: {
@@ -23,7 +28,7 @@ export default {
         step3: '3. Pritisnite "ZAPOČNI" za pokretanje kalibracije uređaja.'
       },
       buttons: {
-        start: 'ZAPOČNI',
+        start: 'ZAPOČNI', 
         retry: 'PONOVI',
         finish: 'ZAVRŠI'
       },
@@ -36,7 +41,7 @@ export default {
       },
       failure: {
         message: 'Kalibracija nažalost nije izvršena uspješno.',
-        instructions: 'Pokušajte očistiti unutrašnjost uređaja. Provjerite jesu li leće kamera i UV lampi zaprijane. Očistite ladicu i kalibracijski papir. Zatim pokušajte ponovno kalibrirati uređaj. Ako se problem i dalje javlja kontaktirajte proizvođača.'
+        instructions: 'Pokušajte očistiti unutrašnjost uređaja. Provjerite jesu li leće kamera i UV lampi zaprijane. Očistite ladicu i kalibracijski papir.'
       }
     },
     testing: {

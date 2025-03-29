@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getLanguagePreference, saveLanguagePreference } from '../utils/storage';
 
 interface LanguageContextType {
   currentLanguage: string;
@@ -11,7 +12,17 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { i18n } = useTranslation();
-  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  
+  // Initialize with saved preference or default to current i18n language
+  const [currentLanguage, setCurrentLanguage] = useState(() => {
+    const savedLanguage = getLanguagePreference();
+    if (savedLanguage) {
+      // Apply saved language immediately
+      i18n.changeLanguage(savedLanguage);
+      return savedLanguage;
+    }
+    return i18n.language;
+  });
 
   const availableLanguages = [
     { code: 'hr', name: 'Hrvatski' },
@@ -27,6 +38,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
     setCurrentLanguage(lang);
+    saveLanguagePreference(lang);
   };
 
   return (

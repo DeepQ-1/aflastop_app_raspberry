@@ -11,10 +11,15 @@ export default {
     settings: {
       theme: 'Tema dell\'applicazione',
       language: 'Lingua dell\'applicazione',
-      deviceOptions: 'Opzioni dispositivo'
+      deviceOptions: 'Opzioni dispositivo',
+      themes: {
+        light: 'CHIARO',
+        dark: 'SCURO'
+      }
     },
     notifications: {
-      calibrationNeeded: 'È necessaria la calibrazione della fotocamera prima di ogni test.'
+      calibrationNeeded: 'È necessaria la calibrazione della fotocamera.',
+      trayOpen: 'Il cassetto è aperto. Si prega di chiudere il cassetto prima di continuare.'
     },
     calibration: {
       instructions: {
