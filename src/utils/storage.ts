@@ -3,6 +3,7 @@ import { TestRecord } from '../types/test';
 const STORAGE_KEY = 'test_history';
 const LANGUAGE_KEY = 'app_language';
 const THEME_KEY = 'app_theme';
+const CALIBRATION_KEY = 'device_calibrated';
 
 export const saveTestResult = (record: TestRecord): void => {
   const history = getTestHistory();
@@ -31,4 +32,14 @@ export const saveThemePreference = (theme: string): void => {
 
 export const getThemePreference = (): string | null => {
   return localStorage.getItem(THEME_KEY);
+};
+
+// Calibration status
+export const saveCalibrationStatus = (isCalibrated: boolean): void => {
+  localStorage.setItem(CALIBRATION_KEY, isCalibrated.toString());
+};
+
+export const getCalibrationStatus = (): boolean => {
+  const status = localStorage.getItem(CALIBRATION_KEY);
+  return status === 'true';
 };

@@ -12,6 +12,7 @@ export default {
       theme: 'Thème de l\'application',
       language: 'Langue de l\'application',
       deviceOptions: 'Options de l\'appareil',
+      connectivity: 'Connectivité',
       themes: {
         light: 'CLAIR',
         dark: 'SOMBRE'

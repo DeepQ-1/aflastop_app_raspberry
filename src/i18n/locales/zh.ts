@@ -12,6 +12,7 @@ export default {
       theme: '应用主题',
       language: '应用语言',
       deviceOptions: '设备选项',
+      connectivity: '连接性',
       themes: {
         light: '明亮',
         dark: '暗黑'

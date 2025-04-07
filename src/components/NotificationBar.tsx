@@ -6,12 +6,14 @@ import { useTrayStatus } from '../context/TrayStatusContext';
 
 interface NotificationBarProps {
   isCalibrated: boolean;
+  isMenuOpen?: boolean;
   onCalibrate: () => void;
   onDismiss: () => void;
 }
 
 export const NotificationBar: React.FC<NotificationBarProps> = ({ 
   isCalibrated,
+  isMenuOpen = false,
   onCalibrate,
   onDismiss
 }) => {
@@ -23,9 +25,14 @@ export const NotificationBar: React.FC<NotificationBarProps> = ({
   const isCalibrationScreen = location.pathname === '/calibration';
   const isHomeScreen = location.pathname === '/';
 
-  // Don't show any notification if everything is fine
-  console.log('Notification bar - Tray open:', isTrayOpen, 'Calibration needed:', !isCalibrated, 'Home screen:', isHomeScreen);
-  if ((isCalibrated && !isTrayOpen) || (!isHomeScreen && !isTrayOpen)) return null;
+  // Don't show any notification if everything is fine or if notification criteria aren't met
+  console.log('Notification bar - Tray open:', isTrayOpen, 'Calibration needed:', !isCalibrated, 'Home screen:', isHomeScreen, 'Menu open:', isMenuOpen);
+  
+  // Always hide notifications when everything is fine
+  if (isCalibrated && !isTrayOpen) return null;
+  
+  // For calibration notification: only show on home screen and when menu is closed
+  if (!isCalibrated && (!isHomeScreen || isMenuOpen) && !isTrayOpen) return null;
 
   // Tray open notification has priority over calibration notification (shown on all screens)
   if (isTrayOpen) {

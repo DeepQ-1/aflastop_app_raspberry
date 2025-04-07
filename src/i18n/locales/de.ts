@@ -12,6 +12,7 @@ export default {
       theme: 'Anwendungsthema',
       language: 'Anwendungssprache',
       deviceOptions: 'Geräteoptionen',
+      connectivity: 'Konnektivität',
       themes: {
         light: 'HELL',
         dark: 'DUNKEL'

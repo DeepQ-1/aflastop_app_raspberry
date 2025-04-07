@@ -12,6 +12,7 @@ export default {
       theme: 'Alkalmazás témája',
       language: 'Alkalmazás nyelve',
       deviceOptions: 'Készülék beállításai',
+      connectivity: 'Kapcsolódási lehetőségek',
       themes: {
         light: 'VILÁGOS',
         dark: 'SÖTÉT'

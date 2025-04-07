@@ -12,6 +12,7 @@ export default {
       theme: 'Tema aplikacije',
       language: 'Jezik aplikacije',
       deviceOptions: 'Opcije uređaja',
+      connectivity: 'Povezivost',
       themes: {
         light: 'SVIJETLO',
         dark: 'TAMNO'
