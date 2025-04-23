@@ -16,6 +16,21 @@ export default {
       themes: {
         light: 'LIGHT',
         dark: 'DARK'
+      },
+      wifi: {
+        title: 'WiFi Configuration',
+        status: 'Status',
+        connected: 'Connected',
+        disconnected: 'Disconnected',
+        scan: 'Scan for Networks',
+        connect: 'Connect',
+        cancel: 'Cancel',
+        enterPassword: 'Enter Password',
+        ssid: 'Network Name (SSID)',
+        password: 'Password',
+        connecting: 'Connecting...',
+        connectionSuccess: 'Connected successfully',
+        connectionFailed: 'Connection failed'
       }
     },
     notifications: {

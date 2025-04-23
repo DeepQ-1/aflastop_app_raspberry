@@ -6,26 +6,23 @@ pkill -f vite || true
 pkill -f vite-react-typescript-starter || true
 sleep 1
 
-# Set display environments
-export DISPLAY=:0
+# Set display environments to use Linux framebuffer directly
+unset DISPLAY
 unset WAYLAND_DISPLAY
 
-# Disable cursor
-export XCURSOR_THEME=""
-export XCURSOR_SIZE=0
-
-# Environment variables for Electron
+# Completely disable all GPU and hardware acceleration
 export ELECTRON_DISABLE_GPU=1
 export ELECTRON_DISABLE_HARDWARE_ACCELERATION=1
-export ELECTRON_ENABLE_LOGGING=1
-export ELECTRON_OZONE_PLATFORM=x11
 export ELECTRON_NO_SANDBOX=1
+export ELECTRON_OZONE_PLATFORM=headless
+export ELECTRON_ENABLE_LOGGING=1
+
+# Set software rendering variables
 export LIBGL_ALWAYS_SOFTWARE=1
-export NODE_ENV=production
 export ELECTRON_USE_GBM=0
 
 # Path to application
 APP_PATH="$HOME/aflastop_app_1-main/out/vite-react-typescript-starter-linux-arm64/vite-react-typescript-starter"
 
-# Run the production build with safe rendering settings
-"$APP_PATH" --no-sandbox --disable-gpu --force-fallback-to-sw-compositing --disable-dev-shm-usage
+# Run with minimal flags and safe rendering settings
+"$APP_PATH" --ozone-platform=headless --disable-gpu --no-sandbox --disable-dev-shm-usage

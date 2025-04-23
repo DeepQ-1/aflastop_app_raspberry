@@ -8,6 +8,9 @@
   "scripts": {
     "dev": "vite",
     "dev:electron": "export DISPLAY=:0 && cross-env NODE_ENV=development DISPLAY=:0 concurrently \"vite\" \"electron-forge start\"",
+    "dev:electron:nodevtools": "export DISPLAY=:0 && cross-env NODE_ENV=development DISPLAY=:0 DEVTOOLS=0 --ozone-platform=x11 concurrently \"vite\" \"electron-forge start\"",
+    "dev:electron:bottom": "export DISPLAY=:0 && cross-env NODE_ENV=development DISPLAY=:0 concurrently \"vite\" \"electron-forge start\"",
+    "dev:electron:fb": "export ELECTRON_DISABLE_GPU=1 ELECTRON_DISABLE_HARDWARE_ACCELERATION=1 ELECTRON_NO_SANDBOX=1 ELECTRON_OZONE_PLATFORM=drm ELECTRON_ENABLE_LOGGING=1 && cross-env NODE_ENV=development DEVTOOLS=0 concurrently \"vite\" \"electron-forge start\"",
     "build": "vite build",
     "build:electron": "vite build && electron-forge make",
     "preview": "vite preview",

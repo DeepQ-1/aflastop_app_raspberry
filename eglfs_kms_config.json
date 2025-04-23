@@ -1,0 +1,16 @@
+{
+  "device": "/dev/dri/card0",
+  "outputs": [
+    {
+      "name": "HDMI-A-1",
+      "size": {
+        "width": 800,
+        "height": 480
+      },
+      "physicalSize": {
+        "width": 800,
+        "height": 480
+      }
+    }
+  ]
+}

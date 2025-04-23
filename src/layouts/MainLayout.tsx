@@ -6,6 +6,7 @@ import { Logo } from '../components/Logo';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { ThemeSelector } from '../components/ThemeSelector';
 import { NotificationBar } from '../components/NotificationBar';
+import { WifiConfig } from '../components/WifiConfig';
 import { useCalibration } from '../context/CalibrationContext';
 import { useLayout } from '../context/LayoutContext';
 import { useTrayStatus } from '../context/TrayStatusContext';
@@ -195,37 +196,7 @@ export const MainLayout: React.FC = () => {
             {activeSetting === 'connectivity' && (
               <div className="settings-page">
                 <div className="settings-page-content">
-                  <div className="space-y-4">
-                    <div className="bg-opacity-10 bg-white p-4 rounded-lg">
-                      <h3 className="text-2xl font-medium mb-2">WiFi</h3>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xl">Status: Connected</span>
-                        <button className="bg-opacity-20 bg-white py-2 px-4 rounded-lg hover:bg-opacity-30 transition-colors">
-                          Configure
-                        </button>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-opacity-10 bg-white p-4 rounded-lg">
-                      <h3 className="text-2xl font-medium mb-2">Bluetooth</h3>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xl">Status: Off</span>
-                        <button className="bg-opacity-20 bg-white py-2 px-4 rounded-lg hover:bg-opacity-30 transition-colors">
-                          Enable
-                        </button>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-opacity-10 bg-white p-4 rounded-lg">
-                      <h3 className="text-2xl font-medium mb-2">Remote Access</h3>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xl">Status: Disabled</span>
-                        <button className="bg-opacity-20 bg-white py-2 px-4 rounded-lg hover:bg-opacity-30 transition-colors">
-                          Enable
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <WifiConfig />
                 </div>
               </div>
             )}
