@@ -17,8 +17,9 @@ GAIN="8.0"
 # Get current date and time for filename
 DATETIME=$(date '+%d-%m-%Y_%H:%M:%S')
 
-# Create images directory if it doesn't exist
-mkdir -p images
+# Determine images directory (use first argument if provided, otherwise default to 'images')
+IMAGES_DIR="${1:-images}"
+mkdir -p "$IMAGES_DIR"
 
 # Capture image from TOP camera (with cokin filter, awb=incandescent)
 libcamera-still -n \
@@ -31,7 +32,7 @@ libcamera-still -n \
     --saturation $SATURATION \
     --ev $EV \
     --gain $GAIN \
-    -o "images/${DATETIME}__TOP.jpg" \
+    -o "${IMAGES_DIR}/${DATETIME}__TOP.jpg" \
 
 # Capture image from BOTTOM camera (without cokin filter, awb=cloudy)
 libcamera-still -n \
@@ -44,8 +45,8 @@ libcamera-still -n \
     --saturation $SATURATION \
     --ev $EV \
     --gain $GAIN \
-    -o "images/${DATETIME}__BOTTOM.jpg"
+    -o "${IMAGES_DIR}/${DATETIME}__BOTTOM.jpg"
 
-echo "Images captured and saved to the 'images' folder:"
-echo " - images/${DATETIME}__TOP.jpg"
-echo " - images/${DATETIME}__BOTTOM.jpg"
+echo "Images captured and saved to the '${IMAGES_DIR}' folder:"
+echo " - ${IMAGES_DIR}/${DATETIME}__TOP.jpg"
+echo " - ${IMAGES_DIR}/${DATETIME}__BOTTOM.jpg"

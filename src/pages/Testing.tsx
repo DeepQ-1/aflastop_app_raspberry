@@ -27,7 +27,7 @@ export const Testing: React.FC = () => {
   const [currentTestId, setCurrentTestId] = useState('');
   const { isTrayOpen } = useTrayStatus();
   const { theme } = useTheme();
-  
+
   // Redirect to home if tray is open
   useEffect(() => {
     if (isTrayOpen) {
@@ -41,28 +41,56 @@ export const Testing: React.FC = () => {
     };
   }, [setTestId]);
 
-  const startTesting = () => {
+  const startTesting = async () => {
     setState('testing');
     const newTestId = generateTestId();
     const formattedId = `${newTestId.slice(0, 3)}-${newTestId.slice(3)}`;
     setCurrentTestId(newTestId);
     setTestId(formattedId);
-    
-    setTimeout(() => {
-      const results: TestingState[] = ['success', 'warning', 'positive'];
-      const result = results[Math.floor(Math.random() * results.length)];
-      setState(result);
-      
-      const testResult: TestResult = 
-        result === 'success' ? 'UREDAN' :
-        result === 'warning' ? 'SUMNJIV' : 'POZITIVAN';
-        
+
+    try {
+      // Execute the test script
+      const scriptName = 'dependency_scripts/gen_mask_test.sh';
+      const result = await window.electron.invoke('execute-script', scriptName);
+
+      // Parse the result to extract test status and pixel count
+      const statusMatch = result.match(/TEST_STATUS: (\w+)/);
+      const pixelMatch = result.match(/TEST_PIXEL_COUNT: (\d+)/);
+
+      if (statusMatch && statusMatch[1]) {
+        const testResult: TestResult = statusMatch[1] as TestResult;
+
+        // Set state based on test result
+        setState(
+          testResult === 'UREDAN' ? 'success' :
+          testResult === 'SUMNJIV' ? 'warning' : 'positive'
+        );
+
+
+        // Save test result to history
+        saveTestResult({
+          id: newTestId,
+          date: new Date().toLocaleString(),
+          result: testResult
+        });
+      } else {
+        // Default to warning if parsing fails
+        setState('warning');
+        saveTestResult({
+          id: newTestId,
+          date: new Date().toLocaleString(),
+          result: 'SUMNJIV'
+        });
+      }
+    } catch (error) {
+      console.error('Testing error:', error);
+      setState('warning');
       saveTestResult({
         id: newTestId,
         date: new Date().toLocaleString(),
-        result: testResult
+        result: 'SUMNJIV'
       });
-    }, 2000);
+    }
   };
 
   const getResultContent = () => {
@@ -137,11 +165,12 @@ export const Testing: React.FC = () => {
             <div className="flex justify-center mb-8">
               {getResultContent()?.icon}
             </div>
-            <h2 className="text-3xl font-bold mb-8">
+            <h2 className="text-3xl font-bold mb-4">
               {t('testing.results.title')}
               <br />
               {getResultContent()?.text}
             </h2>
+
             <div className="flex gap-4 w-full">
               <button
                 onClick={startTesting}

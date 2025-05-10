@@ -56,22 +56,29 @@ export const Calibration: React.FC = () => {
 
     try {
       // Control relay (off, then on)
-      console.log("HEYYY")
       await controlRelay('off');
       await controlRelay('on');
 
       // Check tray status
       if (await checkTrayStatus()) {
-        console.log("HEYYY222")
         setState('failure');
         return;
       }
 
-      // Simulate calibration process
-      setTimeout(() => {
-        // Randomly choose success or failure
-        setState(Math.random() > 0.5 ? 'success' : 'failure');
-      }, 2000);
+      // Run gen_mask.sh script once as part of calibration process
+      try {
+        const scriptName = 'dependency_scripts/gen_mask.sh';
+        // Execute the script and wait for it to complete, but don't use result to determine success
+        await window.electron.invoke('execute-script', scriptName);
+
+        // If we've made it this far, consider calibration successful
+        setState('success');
+      } catch (err) {
+        console.error('Calibration script error:', err);
+        // Even if gen_mask.sh has an error, consider calibration successful
+        // as per requirement that gen_mask.sh result should not affect calibration
+        setState('success');
+      }
     } catch (err) {
       console.error('Calibration error:', err);
       setState('failure');

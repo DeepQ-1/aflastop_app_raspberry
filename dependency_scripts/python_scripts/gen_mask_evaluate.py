@@ -1,8 +1,14 @@
 import cv2
 import numpy as np
+import sys
 
-# Load the image
-image_path = 'corn_under_uv.jpg'  # replace with your file path
+# Load the image from command line argument
+if len(sys.argv) > 1:
+    image_path = sys.argv[1]
+else:
+    print("No image path provided. Usage: python gen_mask_evaluate.py <image_path>")
+    sys.exit(1)
+
 image = cv2.imread(image_path)
 
 # Convert the image to the HSV color space
@@ -36,6 +42,14 @@ print(f"Number of glowing green pixels: {green_pixels_count}")
 print(safety_status)
 
 # Save the mask image
-output_mask_path = 'green_glow_mask.jpg'  # specify the output filename
+import os
+# Use the same directory as the input image
+output_dir = os.path.dirname(image_path)
+output_filename = os.path.basename(image_path).replace('.jpg', '_mask.jpg')
+output_mask_path = os.path.join(output_dir, output_filename)
+
+# Ensure output directory exists
+os.makedirs(output_dir, exist_ok=True)
+
 cv2.imwrite(output_mask_path, mask)
 print(f"Mask image saved as: {output_mask_path}")

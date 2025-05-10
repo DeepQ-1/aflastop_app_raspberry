@@ -50,16 +50,31 @@ ipcMain.handle('execute-script', async (event, scriptName) => {
   const base_path = "dependency_scripts/"
   const allowedScripts = [
     `${base_path}check_tray_status.sh`,
-    `${base_path}relay_on.sh`, 
-    `${base_path}relay_off.sh`
+    `${base_path}relay_on.sh`,
+    `${base_path}relay_off.sh`,
+    `${base_path}gen_mask.sh`,
+    `${base_path}gen_mask_test.sh`
   ];
   if (!allowedScripts.includes(scriptName)) {
     throw new Error('Unauthorized script execution attempt');
   }
 
-  // Navigate up from the electron directory to the project root
-  const projectRoot = path.resolve(__dirname, '..');
-  const scriptPath = path.join(projectRoot, scriptName);
+  // In development mode, use project directory
+  // In production, use resources directory where extraResources are copied
+  let scriptPath;
+  if (isDev) {
+    // During development, scripts are in the project root
+    scriptPath = path.join(path.resolve(__dirname, '..'), scriptName);
+  } else {
+    // In production, scripts are in the extraResources location
+    scriptPath = path.join(process.resourcesPath, scriptName);
+  }
+
+  // Ensure script exists (only for non-status checks)
+  if (!scriptName.includes('check_tray_status.sh')) {
+    const fs = require('fs');
+    console.log(`Script path: ${scriptPath}, exists: ${fs.existsSync(scriptPath)}`);
+  }
   
   // Only log execution for scripts other than check_tray_status.sh
   if (!scriptName.includes('check_tray_status.sh')) {

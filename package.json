@@ -1,5 +1,5 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "aflastop",
   "private": true,
   "version": "0.0.0",
   "main": "electron/main.js",
@@ -55,7 +55,13 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "public/logo.svg"
+        "icon": "public/logo.svg",
+        "extraResources": [
+          {
+            "from": "dependency_scripts",
+            "to": "dependency_scripts"
+          }
+        ]
       },
       "makers": [
         {
